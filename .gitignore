@@ -1,0 +1,4 @@
+.idea
+/vendor
+env.php
+test_env.php

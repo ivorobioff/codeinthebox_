@@ -1,0 +1,17 @@
+{
+    "require": {
+        "immediate-solutions/support": "dev-master",
+        "immediate-solutions/framework": "dev-master",
+        "immediate-solutions/framework-support": "dev-master",
+        "doctrine/orm": "^2.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "ImmediateSolutions\\CodeInTheBox\\": "src/",
+            "ImmediateSolutions\\CodeInTheBox\\Tests\\": "tests/"
+        }
+    }
+}
