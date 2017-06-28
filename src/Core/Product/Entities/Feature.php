@@ -36,4 +36,11 @@ class Feature
     private $cost;
     public function setCost($cost) { $this->cost = $cost; }
     public function getCost() { return $this->cost; }
+
+    /**
+     * @var mixed
+     */
+    private $value;
+    public function setValue($value) { $this->value = $value; }
+    public function getValue() { return $this->value; }
 }

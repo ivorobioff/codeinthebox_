@@ -2,6 +2,7 @@
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
@@ -9,9 +10,9 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 interface EstimatorInterface
 {
     /**
-     * @param Feature $feature
-     * @param mixed $value
+     * @param Given $given
+     * @param Given[] $givens
      * @return int
      */
-    public function estimate(Feature $feature, $value);
+    public function estimate(Given $given, array $givens);
 }
