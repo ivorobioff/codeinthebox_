@@ -8,8 +8,10 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class KeywordEstimator implements EstimatorInterface
+class ModuleEstimator implements EstimatorInterface
 {
+    const AVERAGE_DURATION = 8;
+
     /**
      * @param Given $given
      * @param Given[] $givens
@@ -17,7 +19,7 @@ class KeywordEstimator implements EstimatorInterface
      */
     public function supports(Given $given, array $givens)
     {
-        return $given->getFeature()->getName()->is(Name::KEYWORD);
+        return $given->getFeature()->getName()->is(Name::MODULE);
     }
 
     /**
@@ -27,6 +29,6 @@ class KeywordEstimator implements EstimatorInterface
      */
     public function estimate(Given $given, array $givens)
     {
-        return 100;
+        return $given->getValue() * self::AVERAGE_DURATION;
     }
 }

@@ -10,6 +10,8 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
  */
 class SpecificationEstimator implements EstimatorInterface
 {
+    use UtilsTrait;
+
     /**
      * @param Given $given
      * @param Given[] $givens
@@ -27,6 +29,12 @@ class SpecificationEstimator implements EstimatorInterface
      */
     public function estimate(Given $given, array $givens)
     {
-        return 10;
+        $totalModules = $this->getTotalModules($givens);
+
+        if ($totalModules == 0){
+            return 0;
+        }
+
+        return (int) ceil($totalModules / 5) * 8;
     }
 }

@@ -3,7 +3,7 @@ namespace ImmediateSolutions\CodeInTheBox\Core\Product\Services;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\KeywordEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\ModuleEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\SpecificationEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
@@ -21,7 +21,7 @@ class ProductService extends Service
      * @param AnswerPayload[] $answers
      * @return Estimation
      */
-    public function getEstimation($productId, array $answers)
+    public function getEstimation($productId, array $answers = [])
     {
         $result = [];
 
@@ -44,7 +44,7 @@ class ProductService extends Service
         $givens = array_map(function(Feature $feature) use ($answers) {
             $given = new Given();
             $given->setFeature($feature);
-            $given->setValue([$feature, $answers[$feature->getId()] ?? $feature->getValue()]);
+            $given->setValue($answers[$feature->getId()] ?? $feature->getValue());
             return $given;
         }, $features);
 
@@ -76,7 +76,7 @@ class ProductService extends Service
     private function getEstimators()
     {
         return [
-            new KeywordEstimator(),
+            new ModuleEstimator(),
             new SpecificationEstimator()
         ];
     }

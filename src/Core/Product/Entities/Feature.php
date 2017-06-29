@@ -17,6 +17,13 @@ class Feature
     public function getId() { return $this->id; }
 
     /**
+     * @var Product
+     */
+    private $product;
+    public function setProduct(Product $product) { $this->product = $product; }
+    public function getProduct() { return $this->product; }
+
+    /**
      * @var Name
      */
     private $name;

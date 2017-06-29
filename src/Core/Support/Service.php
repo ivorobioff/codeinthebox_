@@ -19,7 +19,12 @@ abstract class Service
      */
     protected $entityManager;
 
+    /**
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
+        $this->entityManager = $container->get(EntityManagerInterface::class);
     }
 }

@@ -8,6 +8,6 @@ use ImmediateSolutions\Support\Other\Enum;
  */
 class Name extends Enum
 {
-    const KEYWORD = 'keyword';
+    const MODULE = 'module';
     const SPECIFICATION = 'specification';
 }
