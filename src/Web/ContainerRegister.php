@@ -1,6 +1,8 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Web;
 
+use ImmediateSolutions\CodeInTheBox\Infrastructure\EnvironmentInterface;
+use ImmediateSolutions\CodeInTheBox\Web\Support\Environment;
 use ImmediateSolutions\Support\Api\JsonResponseFactory;
 use ImmediateSolutions\Support\Api\ResponseFactoryInterface;
 use ImmediateSolutions\Support\Framework\ContainerPopulatorInterface;
@@ -33,8 +35,11 @@ class ContainerRegister implements ContainerRegisterInterface
         (new \ImmediateSolutions\Support\Infrastructure\ContainerRegister())->register($populator);
         (new \ImmediateSolutions\Support\Web\ContainerRegister($this->rootPath.'/resources/views'))->register($populator);
 
+        (new \ImmediateSolutions\CodeInTheBox\Infrastructure\ContainerRegister($this->rootPath))->register($populator);
+
         $populator
             ->instance(RouteRegisterInterface::class, RouteRegister::class)
-            ->instance(ResponseFactoryInterface::class, JsonResponseFactory::class);
+            ->instance(ResponseFactoryInterface::class, JsonResponseFactory::class)
+            ->service(EnvironmentInterface::class, Environment::class);
     }
 }

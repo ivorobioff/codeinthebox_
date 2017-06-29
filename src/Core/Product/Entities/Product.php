@@ -1,6 +1,8 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Entities;
 
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Kind;
+
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
@@ -12,6 +14,13 @@ class Product
     private $id;
     public function setId($id) { $this->id = $id; }
     public function getId() { return $this->id; }
+
+    /**
+     * @var Kind
+     */
+    private $kind;
+    public function setKind(Kind $kind) { $this->kind = $kind; }
+    public function getKind() { return $this->kind; }
 
     /**
      * @var string

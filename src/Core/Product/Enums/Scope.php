@@ -8,7 +8,6 @@ use ImmediateSolutions\Support\Other\Enum;
  */
 class Scope extends Enum
 {
-    const INTERNAL = 'internal';
-    const INCLUDED = 'included';
-    const SELECTABLE = 'selectable';
+    const INNER = 'inner';
+    const OUTER = 'outer';
 }

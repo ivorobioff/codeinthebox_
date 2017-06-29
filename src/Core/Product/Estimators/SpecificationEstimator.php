@@ -8,7 +8,7 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class KeywordEstimator implements EstimatorInterface
+class SpecificationEstimator implements EstimatorInterface
 {
     /**
      * @param Given $given
@@ -17,7 +17,7 @@ class KeywordEstimator implements EstimatorInterface
      */
     public function supports(Given $given, array $givens)
     {
-        return $given->getFeature()->getName()->is(Name::KEYWORD);
+        return $given->getFeature()->getName()->is(Name::SPECIFICATION);
     }
 
     /**
@@ -27,6 +27,6 @@ class KeywordEstimator implements EstimatorInterface
      */
     public function estimate(Given $given, array $givens)
     {
-        return 100;
+        return 10;
     }
 }

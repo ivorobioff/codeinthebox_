@@ -12,6 +12,13 @@ interface EstimatorInterface
     /**
      * @param Given $given
      * @param Given[] $givens
+     * @return bool
+     */
+    public function supports(Given $given, array $givens);
+
+    /**
+     * @param Given $given
+     * @param Given[] $givens
      * @return int
      */
     public function estimate(Given $given, array $givens);

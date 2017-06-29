@@ -2,6 +2,9 @@
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Services;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\KeywordEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\SpecificationEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
@@ -51,7 +54,7 @@ class ProductService extends Service
 
         foreach ($givens as $given){
 
-            $duration = $this->findEstimator($given->getFeature())->estimate($given, $givens);
+            $duration = $this->findEstimator($given, $givens)->estimate($given, $givens);
 
             $price = $given->getFeature()->getCost() * $duration;
 
@@ -68,12 +71,30 @@ class ProductService extends Service
     }
 
     /**
-     * @param Feature $feature
+     * @return EstimatorInterface[]
+     */
+    private function getEstimators()
+    {
+        return [
+            new KeywordEstimator(),
+            new SpecificationEstimator()
+        ];
+    }
+
+    /**
+     * @param Given $given
+     * @param array $givens
      * @return EstimatorInterface
      */
-    private function findEstimator(Feature $feature)
+    private function findEstimator(Given $given, array $givens)
     {
+        foreach ($this->getEstimators() as $estimator){
+            if ($estimator->supports($given, $givens)){
+                return $estimator;
+            }
+        }
 
+        return new EmptyEstimator();
     }
 
 }

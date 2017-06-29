@@ -6,8 +6,9 @@ use ImmediateSolutions\Support\Other\Enum;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class Name extends Enum
+class Kind extends Enum
 {
-    const KEYWORD = 'keyword';
-    const SPECIFICATION = 'specification';
+    const WEB_APPLICATION = 'web-application';
+    const SCRIPT = 'script';
+    const WORDPRESS_THEME = 'wordpress-theme';
 }
