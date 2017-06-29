@@ -21,7 +21,11 @@ class ProductFixture extends Fixture
     public function load(ObjectManager $manager)
     {
         $product = new Product();
+
         $product->setKind(new Kind(Kind::WEB_APPLICATION));
+        $product->setTitle('Web Application');
+        $product->setLongDescription('Interactive, highly customizable software');
+        $product->setShortDescription('Interactive, highly customizable software');
 
         $manager->persist($product);
         $manager->flush();

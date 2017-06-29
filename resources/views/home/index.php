@@ -1,4 +1,8 @@
-<?php $this->layout('layout');?>
+<?php
+
+$this->layout('layout');
+
+?>
 
 <?php $this->start('view'); ?>
 <!-- Jumbotron Header -->
@@ -14,7 +18,7 @@
 <!-- Title -->
 <div class="row">
     <div class="col-lg-12">
-        <h3>Latest Features</h3>
+        <h3>All Products</h3>
     </div>
 </div>
 <!-- /.row -->
@@ -22,57 +26,23 @@
 <!-- Page Features -->
 <div class="row text-center">
 
+    <?php foreach ($products as $product) { ?>
     <div class="col-md-3 col-sm-6 hero-feature">
         <div class="thumbnail">
             <img src="http://placehold.it/800x500" alt="">
             <div class="caption">
-                <h3>Web Application</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <h3><?=$this->e($product['title'])?></h3>
+                <p><?=$this->e($product['shortDescription'])?></p>
+                <p>$<?=$product['price']?> / <?=$this->duration($product['duration'])?></p>
                 <p>
-                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                    <a href="#" class="btn btn-primary">Buy Now!</a>
                 </p>
             </div>
         </div>
     </div>
+    <?php } ?>
 
-    <div class="col-md-3 col-sm-6 hero-feature">
-        <div class="thumbnail">
-            <img src="http://placehold.it/800x500" alt="">
-            <div class="caption">
-                <h3>Feature Label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                </p>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-md-3 col-sm-6 hero-feature">
-        <div class="thumbnail">
-            <img src="http://placehold.it/800x500" alt="">
-            <div class="caption">
-                <h3>Feature Label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3 col-sm-6 hero-feature">
-        <div class="thumbnail">
-            <img src="http://placehold.it/800x500" alt="">
-            <div class="caption">
-                <h3>Feature Label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                </p>
-            </div>
-        </div>
-    </div>
 
 </div>
 <!-- /.row -->

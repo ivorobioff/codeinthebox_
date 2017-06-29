@@ -29,6 +29,10 @@ class SpecificationEstimator implements EstimatorInterface
      */
     public function estimate(Given $given, array $givens)
     {
+        if ($given->getValue()){
+            return 0;
+        }
+
         $totalModules = $this->getTotalModules($givens);
 
         if ($totalModules == 0){

@@ -2,12 +2,14 @@
 namespace ImmediateSolutions\CodeInTheBox\Web;
 
 use ImmediateSolutions\CodeInTheBox\Infrastructure\EnvironmentInterface;
+use ImmediateSolutions\CodeInTheBox\Web\Support\EngineInitializer;
 use ImmediateSolutions\CodeInTheBox\Web\Support\Environment;
 use ImmediateSolutions\Support\Api\JsonResponseFactory;
 use ImmediateSolutions\Support\Api\ResponseFactoryInterface;
 use ImmediateSolutions\Support\Framework\ContainerPopulatorInterface;
 use ImmediateSolutions\Support\Framework\ContainerRegisterInterface;
 use ImmediateSolutions\Support\Framework\RouteRegisterInterface;
+use League\Plates\Engine;
 
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
@@ -40,6 +42,7 @@ class ContainerRegister implements ContainerRegisterInterface
         $populator
             ->instance(RouteRegisterInterface::class, RouteRegister::class)
             ->instance(ResponseFactoryInterface::class, JsonResponseFactory::class)
-            ->service(EnvironmentInterface::class, Environment::class);
+            ->service(EnvironmentInterface::class, Environment::class)
+            ->initialize(Engine::class, new EngineInitializer());
     }
 }

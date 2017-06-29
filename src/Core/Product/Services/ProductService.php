@@ -2,6 +2,7 @@
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Services;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\ModuleEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\SpecificationEstimator;
@@ -16,6 +17,14 @@ use ImmediateSolutions\CodeInTheBox\Core\Support\Service;
  */
 class ProductService extends Service
 {
+    /**
+     * @return Product[]
+     */
+    public function getAll()
+    {
+        return $this->entityManager->getRepository(Product::class)->findAll();
+    }
+
     /**
      * @param int $productId
      * @param AnswerPayload[] $answers

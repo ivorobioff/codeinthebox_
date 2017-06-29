@@ -15,12 +15,21 @@ class Product
     public function setId($id) { $this->id = $id; }
     public function getId() { return $this->id; }
 
+
     /**
      * @var Kind
      */
     private $kind;
     public function setKind(Kind $kind) { $this->kind = $kind; }
     public function getKind() { return $this->kind; }
+
+    /**
+     * @var string
+     */
+    private $title;
+    public function setTitle($title) { $this->title = $title; }
+    public function getTitle() { return $this->title; }
+
 
     /**
      * @var string

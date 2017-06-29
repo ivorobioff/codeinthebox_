@@ -987,12 +987,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ivorobioff/sparrow-quick-start.git",
-                "reference": "b9ef9c88ef7c52ea979f2028f55b199ffe130af0"
+                "reference": "8236eed26fccdda7104328d32fb091a6b6a7dec1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ivorobioff/sparrow-quick-start/zipball/b9ef9c88ef7c52ea979f2028f55b199ffe130af0",
-                "reference": "b9ef9c88ef7c52ea979f2028f55b199ffe130af0",
+                "url": "https://api.github.com/repos/ivorobioff/sparrow-quick-start/zipball/8236eed26fccdda7104328d32fb091a6b6a7dec1",
+                "reference": "8236eed26fccdda7104328d32fb091a6b6a7dec1",
                 "shasum": ""
             },
             "require": {
@@ -1015,7 +1015,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2017-06-28 12:46:52"
+            "time": "2017-06-29 20:03:12"
         },
         {
             "name": "immediate-solutions/support",

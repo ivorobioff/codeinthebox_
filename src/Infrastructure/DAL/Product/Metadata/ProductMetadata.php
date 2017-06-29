@@ -26,6 +26,12 @@ class ProductMetadata extends AbstractMetadataProvider
 
         $builder
             ->createField('kind', KindType::class)
+            ->unique(true)
+            ->nullable(false)
+            ->build();
+
+        $builder
+            ->createField('title', 'string')
             ->nullable(false)
             ->build();
 
