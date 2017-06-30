@@ -42,7 +42,7 @@ class FeatureMetadata extends AbstractMetadataProvider
             ->build();
 
         $builder
-            ->createField('cost', 'float')
+            ->createField('estimable', 'boolean')
             ->nullable(false)
             ->build();
 

@@ -38,11 +38,11 @@ class Feature
     public function getScope() { return $this->scope; }
 
     /**
-     * @var float
+     * @var bool
      */
-    private $cost;
-    public function setCost($cost) { $this->cost = $cost; }
-    public function getCost() { return $this->cost; }
+    private $estimable = true;
+    public function setEstimable($flag) { $this->estimable = $flag; }
+    public function getEstimable() { return $this->estimable; }
 
     /**
      * @var mixed

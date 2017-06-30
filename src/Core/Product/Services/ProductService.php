@@ -63,12 +63,16 @@ class ProductService extends Service
 
         foreach ($givens as $given){
 
-            $duration = $this->findEstimator($given, $givens)->estimate($given, $givens);
+            $feature = $given->getFeature();
 
-            $price = $given->getFeature()->getCost() * $duration;
+            if (!$feature->getEstimable()){
+                continue ;
+            }
 
-            $totalDuration += $duration;
-            $totalPrice += $price;
+            $estimation = $this->findEstimator($given, $givens)->estimate($given, $givens);
+
+            $totalDuration += $estimation->getDuration();
+            $totalPrice += $estimation->getPrice();
         }
 
         $estimation = new Estimation();

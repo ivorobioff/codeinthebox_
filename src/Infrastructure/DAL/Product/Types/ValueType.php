@@ -3,6 +3,8 @@ namespace ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\ConverterInterface;
+use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\DateTimeConverter;
+use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\GoalConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\PrimitiveConverter;
 use ImmediateSolutions\Support\Infrastructure\Doctrine\AbstractType;
 
@@ -20,7 +22,9 @@ class ValueType extends AbstractType
     private function getConverters()
     {
         return [
-            new PrimitiveConverter()
+            new PrimitiveConverter(),
+            new DateTimeConverter(),
+            new GoalConverter(),
         ];
     }
 

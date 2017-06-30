@@ -6,9 +6,9 @@ use ImmediateSolutions\Support\Other\Enum;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class Name extends Enum
+class Goal extends Enum
 {
-    const MODULE = 'module';
-    const GOAL = 'goal';
-    const SPECIFICATION = 'specification';
+    const PROTOTYPE = 'prototype';
+    const MVP = 'mvp';
+    const FULLY_COMPLETED = 'fully-completed';
 }

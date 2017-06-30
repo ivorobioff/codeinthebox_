@@ -3,6 +3,7 @@ namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 
 /**
@@ -24,10 +25,27 @@ class SpecificationEstimator implements EstimatorInterface
 
     /**
      * @param Given $given
+     * @param array $givens
+     * @return Estimation
+     */
+    public function estimate(Given $given, array $givens)
+    {
+        $duration = $this->getDuration($given, $givens);
+
+        $estimation = new Estimation();
+
+        $estimation->setPrice($duration * 35);
+        $estimation->setDuration($duration);
+
+        return $estimation;
+    }
+
+    /**
+     * @param Given $given
      * @param Given[] $givens
      * @return int
      */
-    public function estimate(Given $given, array $givens)
+    private function getDuration(Given $given, array $givens)
     {
         if ($given->getValue()){
             return 0;
