@@ -3,6 +3,7 @@ namespace ImmediateSolutions\CodeInTheBox\Core\Product\Services;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\DesignEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\ModuleEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\SpecificationEstimator;
@@ -90,7 +91,8 @@ class ProductService extends Service
     {
         return [
             new ModuleEstimator(),
-            new SpecificationEstimator()
+            new SpecificationEstimator(),
+            new DesignEstimator()
         ];
     }
 

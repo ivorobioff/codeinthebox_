@@ -6,10 +6,9 @@ use ImmediateSolutions\Support\Other\Enum;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class Name extends Enum
+class Design extends Enum
 {
-    const MODULE = 'module';
-    const DESIGN = 'design';
-    const GOAL = 'goal';
-    const SPECIFICATION = 'specification';
+    const PROVIDED = 'provided';
+    const WANTED = 'wanted';
+    const ANY = 'any';
 }

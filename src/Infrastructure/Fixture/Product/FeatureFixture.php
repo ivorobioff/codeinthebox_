@@ -4,6 +4,7 @@ namespace ImmediateSolutions\CodeInTheBox\Infrastructure\Fixture\Product;
 use Doctrine\Common\Persistence\ObjectManager;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Design;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Goal;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Scope;
@@ -42,6 +43,14 @@ class FeatureFixture extends Fixture
         $feature->setValue(new Goal(Goal::MVP));
         $feature->setEstimable(false);
 
+
+        $manager->persist($feature);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::DESIGN));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(new Design(Design::ANY));
 
         $manager->persist($feature);
 
