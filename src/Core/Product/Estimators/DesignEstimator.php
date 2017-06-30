@@ -2,6 +2,7 @@
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Design;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Goal;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
@@ -13,6 +14,24 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 class DesignEstimator implements EstimatorInterface
 {
     use UtilsTrait;
+
+    const HTML_COST_PER_HOUR = 20;
+    const DESIGN_COST_PER_HOUR = 40;
+
+    const HTML_RATIO_PER_MODULE_PROTOTYPE = 5;
+    const HTML_DURATION_PER_RATIO_PROTOTYPE = 3;
+
+
+    const HTML_DURATION_PER_MODULE = [
+        Goal::MVP => 2,
+        Goal::FULLY_COMPLETED => 4
+    ];
+
+    const DESIGN_DURATION_PER_MODULE = [
+        Goal::PROTOTYPE => 0,
+        Goal::MVP => 2,
+        Goal::FULLY_COMPLETED => 4
+    ];
 
     /**
      * @param Given $given
@@ -44,24 +63,47 @@ class DesignEstimator implements EstimatorInterface
         }
 
         if ($value->is(Design::PROVIDED)){
-
-            $totalModules = $this->getTotalModules($givens);
-
-            $duration = $totalModules * 4;
-
+            $duration = $this->getHtmlDuration($givens);
             $estimation->setDuration($duration);
-            $estimation->setPrice($duration * 20);
+            $estimation->setPrice($duration * self::HTML_COST_PER_HOUR);
         }
 
         if ($value->is(Design::WANTED)){
-
-            $totalModules = $this->getTotalModules($givens);
-
-            $duration = $totalModules * 8; // design + html
+            $duration = $this->getHtmlDuration($givens) + $this->getDesignDuration($givens);
             $estimation->setDuration($duration);
-            $estimation->setPrice($duration * 30); // average of $20 (html) + $40 (design)
+            $estimation->setPrice($duration * ceil((self::DESIGN_COST_PER_HOUR + self::HTML_COST_PER_HOUR) / 2));
         }
 
         return $estimation;
+    }
+
+    /**
+     * @param Given[] $givens
+     * @return int
+     */
+    private function getHtmlDuration(array $givens)
+    {
+        $totalModules = $this->getTotalModules($givens);
+        $goal = $this->getGoal($givens);
+
+        if ($goal->is(Goal::PROTOTYPE)){
+            $duration = (int) ceil($totalModules / self::HTML_RATIO_PER_MODULE_PROTOTYPE) * self::HTML_DURATION_PER_RATIO_PROTOTYPE;
+        } else {
+            $duration = $totalModules * self::HTML_DURATION_PER_MODULE[(string) $goal];
+        }
+
+        return $duration;
+    }
+
+    /**
+     * @param Given[] $givens
+     * @return int
+     */
+    private function getDesignDuration(array $givens)
+    {
+        $totalModules = $this->getTotalModules($givens);
+        $goal = $this->getGoal($givens);
+
+        return $totalModules * self::DESIGN_DURATION_PER_MODULE[(string) $goal];
     }
 }

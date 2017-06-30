@@ -13,6 +13,10 @@ class SpecificationEstimator implements EstimatorInterface
 {
     use UtilsTrait;
 
+    const COST_PER_HOUR = 35;
+    const RATIO_PER_MODULE = 5;
+    const DURATION_PER_RATION = 8;
+
     /**
      * @param Given $given
      * @param Given[] $givens
@@ -34,7 +38,7 @@ class SpecificationEstimator implements EstimatorInterface
 
         $estimation = new Estimation();
 
-        $estimation->setPrice($duration * 35);
+        $estimation->setPrice($duration * self::COST_PER_HOUR);
         $estimation->setDuration($duration);
 
         return $estimation;
@@ -57,6 +61,6 @@ class SpecificationEstimator implements EstimatorInterface
             return 0;
         }
 
-        return (int) ceil($totalModules / 5) * 8;
+        return (int) ceil($totalModules / self::RATIO_PER_MODULE) * self::DURATION_PER_RATION;
     }
 }

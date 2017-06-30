@@ -14,9 +14,13 @@ class ModuleEstimator implements EstimatorInterface
 {
     use UtilsTrait;
 
-    const DURATION_PROTOTYPE = 5;
-    const DURATION_MVP = 8;
-    const DURATION_FULLY_COMPLETED = 10;
+    const DURATION_PER_MODULE = [
+        Goal::PROTOTYPE => 5,
+        Goal::MVP => 8,
+        Goal::FULLY_COMPLETED => 10
+    ];
+
+    const COST_PER_HOUR = 35;
 
     /**
      * @param Given $given
@@ -37,32 +41,12 @@ class ModuleEstimator implements EstimatorInterface
     {
         $estimation = new Estimation();
 
-        $duration = $given->getValue() * $this->getSingleModuleDuration($givens);
+        $duration = $given->getValue() * self::DURATION_PER_MODULE[(string) $this->getGoal($givens)];
 
-        $estimation->setPrice($duration * 35);
+        $estimation->setPrice($duration * self::COST_PER_HOUR);
 
         $estimation->setDuration($duration);
 
         return $estimation;
-    }
-
-    /**
-     * @param array $givens
-     * @return int
-     */
-    private function getSingleModuleDuration(array $givens)
-    {
-        $goal = $this->getGoal($givens);
-
-        if ($goal->is(Goal::PROTOTYPE)){
-            return self::DURATION_PROTOTYPE;
-        }
-
-        if ($goal->is(Goal::FULLY_COMPLETED)){
-            return self::DURATION_FULLY_COMPLETED;
-        }
-
-
-        return self::DURATION_MVP;
     }
 }
