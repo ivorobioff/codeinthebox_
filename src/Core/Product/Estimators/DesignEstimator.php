@@ -18,11 +18,8 @@ class DesignEstimator implements EstimatorInterface
     const HTML_COST_PER_HOUR = 20;
     const DESIGN_COST_PER_HOUR = 40;
 
-    const HTML_RATIO_PER_MODULE_PROTOTYPE = 5;
-    const HTML_DURATION_PER_RATIO_PROTOTYPE = 3;
-
-
     const HTML_DURATION_PER_MODULE = [
+        Goal::PROTOTYPE => 0.6,
         Goal::MVP => 2,
         Goal::FULLY_COMPLETED => 4
     ];
@@ -86,11 +83,7 @@ class DesignEstimator implements EstimatorInterface
         $totalModules = $this->getTotalModules($givens);
         $goal = $this->getGoal($givens);
 
-        if ($goal->is(Goal::PROTOTYPE)){
-            $duration = (int) ceil($totalModules / self::HTML_RATIO_PER_MODULE_PROTOTYPE) * self::HTML_DURATION_PER_RATIO_PROTOTYPE;
-        } else {
-            $duration = $totalModules * self::HTML_DURATION_PER_MODULE[(string) $goal];
-        }
+        $duration = (int) ceil($totalModules * self::HTML_DURATION_PER_MODULE[(string) $goal]);
 
         return $duration;
     }

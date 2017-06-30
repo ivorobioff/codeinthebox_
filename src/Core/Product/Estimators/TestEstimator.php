@@ -1,6 +1,7 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
 
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Goal;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
@@ -9,12 +10,17 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class SpecificationEstimator implements EstimatorInterface
+class TestEstimator implements EstimatorInterface
 {
     use UtilsTrait;
 
     const COST_PER_HOUR = 35;
-    const DURATION_PER_MODULE = 1.6;
+
+    const DURATION_PER_MODULE = [
+        Goal::PROTOTYPE => 0.4,
+        Goal::MVP => 2,
+        Goal::FULLY_COMPLETED => 4
+    ];
 
     /**
      * @param Given $given
@@ -23,43 +29,26 @@ class SpecificationEstimator implements EstimatorInterface
      */
     public function supports(Given $given, array $givens)
     {
-        return $given->getFeature()->getName()->is(Name::SPECIFICATION);
-    }
-
-    /**
-     * @param Given $given
-     * @param array $givens
-     * @return Estimation
-     */
-    public function estimate(Given $given, array $givens)
-    {
-        $duration = $this->getDuration($given, $givens);
-
-        $estimation = new Estimation();
-
-        $estimation->setPrice($duration * self::COST_PER_HOUR);
-        $estimation->setDuration($duration);
-
-        return $estimation;
+        return $given->getFeature()->getName()->is(Name::TEST);
     }
 
     /**
      * @param Given $given
      * @param Given[] $givens
-     * @return int
+     * @return Estimation
      */
-    private function getDuration(Given $given, array $givens)
+    public function estimate(Given $given, array $givens)
     {
-        if ($given->getValue()){
-            return 0;
-        }
-
+        $goal = $this->getGoal($givens);
         $totalModules = $this->getTotalModules($givens);
 
-        if ($totalModules == 0){
-            return 0;
-        }
+        $estimation = new Estimation();
 
-        return (int) ceil($totalModules * self::DURATION_PER_MODULE);
+        $duration = (int) ceil($totalModules * self::DURATION_PER_MODULE[(string) $goal]);
+
+        $estimation->setDuration($duration);
+        $estimation->setPrice($duration * self::COST_PER_HOUR);
+
+        return $estimation;
     }
 }

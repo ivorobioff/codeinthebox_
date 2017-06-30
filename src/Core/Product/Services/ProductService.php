@@ -7,6 +7,7 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\DesignEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\ModuleEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\SpecificationEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\TestEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
@@ -92,7 +93,8 @@ class ProductService extends Service
         return [
             new ModuleEstimator(),
             new SpecificationEstimator(),
-            new DesignEstimator()
+            new DesignEstimator(),
+            new TestEstimator()
         ];
     }
 

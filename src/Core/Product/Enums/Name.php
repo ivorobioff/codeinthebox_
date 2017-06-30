@@ -12,4 +12,5 @@ class Name extends Enum
     const DESIGN = 'design';
     const GOAL = 'goal';
     const SPECIFICATION = 'specification';
+    const TEST = 'test';
 }
