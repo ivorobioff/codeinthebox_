@@ -61,6 +61,14 @@ class FeatureFixture extends Fixture
 
         $manager->persist($feature);
 
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::INTEGRATION));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(0);
+
+        $manager->persist($feature);
+
 
         $feature = new Feature();
         $feature->setProduct($product);

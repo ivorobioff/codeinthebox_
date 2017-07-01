@@ -5,6 +5,7 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\DesignEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\IntegrationEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\ModuleEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\SpecificationEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\TestEstimator;
@@ -94,7 +95,8 @@ class ProductService extends Service
             new ModuleEstimator(),
             new SpecificationEstimator(),
             new DesignEstimator(),
-            new TestEstimator()
+            new TestEstimator(),
+            new IntegrationEstimator()
         ];
     }
 
