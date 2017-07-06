@@ -1,6 +1,7 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
 
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Integration;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
@@ -12,7 +13,13 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 class IntegrationEstimator implements EstimatorInterface
 {
     const COST_PER_INTEGRATION = 35;
-    const DURATION_PER_INTEGRATION = 4;
+
+    const DURATION_PER_INTEGRATION = [
+        Integration::MAILGUN => 4,
+        Integration::MAILCHIMP => 4
+    ];
+
+    const DURATION_PER_CUSTOM_INTEGRATION = 16;
 
     /**
      * @param Given $given
@@ -31,11 +38,15 @@ class IntegrationEstimator implements EstimatorInterface
      */
     public function estimate(Given $given, array $givens)
     {
-        $value = $given->getValue();
+        $integrations = $given->getValue();
 
         $estimation = new Estimation();
 
-        $duration = $value * self::DURATION_PER_INTEGRATION;
+        $duration = 0;
+
+        foreach ($integrations as $integration){
+            $duration += self::DURATION_PER_INTEGRATION[$integration] ?? self::DURATION_PER_CUSTOM_INTEGRATION;
+        }
 
         $estimation->setDuration($duration);
         $estimation->setPrice($duration * self::COST_PER_INTEGRATION);
