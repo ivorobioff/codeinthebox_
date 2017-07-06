@@ -1,7 +1,7 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
 
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Integration;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Algorithm;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
@@ -10,19 +10,15 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class IntegrationEstimator implements EstimatorInterface
+class AlgorithmEstimator implements EstimatorInterface
 {
     const COST_PER_HOUR = 35;
 
-    const DURATION_PER_INTEGRATION = [
-        Integration::MAILGUN => 6,
-        Integration::MAILCHIMP => 6,
-        Integration::PAYPAL => 6,
-        Integration::STRIPE => 6,
-        Integration::AUTHORIZE_NET => 6,
+    const DURATION = [
+        Algorithm::NO => 0,
+        Algorithm::PROVIDED => 8,
+        Algorithm::WANTED => 20
     ];
-
-    const DURATION_PER_CUSTOM_INTEGRATION = 16;
 
     /**
      * @param Given $given
@@ -31,7 +27,7 @@ class IntegrationEstimator implements EstimatorInterface
      */
     public function supports(Given $given, array $givens)
     {
-        return $given->getFeature()->getName()->is(Name::INTEGRATION);
+        return $given->getFeature()->getName()->is(Name::ALGORITHM);
     }
 
     /**
@@ -41,15 +37,9 @@ class IntegrationEstimator implements EstimatorInterface
      */
     public function estimate(Given $given, array $givens)
     {
-        $integrations = $given->getValue();
-
         $estimation = new Estimation();
 
-        $duration = 0;
-
-        foreach ($integrations as $integration){
-            $duration += self::DURATION_PER_INTEGRATION[$integration] ?? self::DURATION_PER_CUSTOM_INTEGRATION;
-        }
+        $duration = self::DURATION[(string) $given->getValue()];
 
         $estimation->setDuration($duration);
         $estimation->setPrice($duration * self::COST_PER_HOUR);

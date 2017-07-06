@@ -14,4 +14,5 @@ class Name extends Enum
     const SPECIFICATION = 'specification';
     const TEST = 'test';
     const INTEGRATION = 'integration';
+    const ALGORITHM = 'algorithm';
 }

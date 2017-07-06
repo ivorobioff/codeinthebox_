@@ -2,6 +2,7 @@
 namespace ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\AlgorithmConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\ConverterInterface;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\DateTimeConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\DesignConverter;
@@ -26,7 +27,8 @@ class ValueType extends AbstractType
             new PrimitiveConverter(),
             new DateTimeConverter(),
             new GoalConverter(),
-            new DesignConverter()
+            new DesignConverter(),
+            new AlgorithmConverter()
         ];
     }
 

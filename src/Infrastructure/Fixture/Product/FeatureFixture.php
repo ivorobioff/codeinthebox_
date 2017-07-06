@@ -4,6 +4,7 @@ namespace ImmediateSolutions\CodeInTheBox\Infrastructure\Fixture\Product;
 use Doctrine\Common\Persistence\ObjectManager;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Algorithm;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Design;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Goal;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
@@ -69,6 +70,13 @@ class FeatureFixture extends Fixture
 
         $manager->persist($feature);
 
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::ALGORITHM));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(new Algorithm(Algorithm::NO));
+
+        $manager->persist($feature);
 
         $feature = new Feature();
         $feature->setProduct($product);
