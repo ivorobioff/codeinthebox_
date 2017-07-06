@@ -15,8 +15,11 @@ class IntegrationEstimator implements EstimatorInterface
     const COST_PER_INTEGRATION = 35;
 
     const DURATION_PER_INTEGRATION = [
-        Integration::MAILGUN => 4,
-        Integration::MAILCHIMP => 4
+        Integration::MAILGUN => 6,
+        Integration::MAILCHIMP => 6,
+        Integration::PAYPAL => 6,
+        Integration::STRIPE => 6,
+        Integration::AUTHORIZE_NET => 6,
     ];
 
     const DURATION_PER_CUSTOM_INTEGRATION = 16;
