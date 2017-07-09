@@ -2,12 +2,15 @@
 namespace ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\AgeConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\AlgorithmConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\ConverterInterface;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\DateTimeConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\DesignConverter;
+use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\DeveloperConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\GoalConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\PrimitiveConverter;
+use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\SupportConverter;
 use ImmediateSolutions\Support\Infrastructure\Doctrine\AbstractType;
 
 /**
@@ -28,7 +31,10 @@ class ValueType extends AbstractType
             new DateTimeConverter(),
             new GoalConverter(),
             new DesignConverter(),
-            new AlgorithmConverter()
+            new AlgorithmConverter(),
+            new AgeConverter(),
+            new DeveloperConverter(),
+            new SupportConverter()
         ];
     }
 

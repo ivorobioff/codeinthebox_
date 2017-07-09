@@ -1,14 +1,14 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters;
 
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Goal;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Developer;
 
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class GoalConverter implements ConverterInterface
+class DeveloperConverter implements ConverterInterface
 {
-    const MARKER = 'goal';
+    const MARKER = 'developer';
 
     /**
      * @param mixed $value
@@ -16,7 +16,7 @@ class GoalConverter implements ConverterInterface
      */
     public function supportsSQL($value)
     {
-        return $value instanceof Goal;
+        return $value instanceof Developer;
     }
 
     /**
@@ -43,6 +43,6 @@ class GoalConverter implements ConverterInterface
      */
     public function toPHP($value)
     {
-        return new Goal($value['value']);
+        return new Developer($value['value']);
     }
 }

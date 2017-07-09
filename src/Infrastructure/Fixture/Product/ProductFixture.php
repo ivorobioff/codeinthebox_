@@ -12,6 +12,7 @@ use ImmediateSolutions\CodeInTheBox\Infrastructure\Fixture\Support\Fixture;
 class ProductFixture extends Fixture
 {
     const REFERENCE_WEB_APPLICATION = 'product_web_application';
+    const REFERENCE_REDEVELOPMENT = 'product_redevelopment';
 
     /**
      * Load data fixtures with the passed EntityManager
@@ -31,5 +32,16 @@ class ProductFixture extends Fixture
         $manager->flush();
 
         $this->setReference(self::REFERENCE_WEB_APPLICATION, $product);
+
+        $product = new Product();
+        $product->setKind(new Kind(Kind::REDEVELOPMENT));
+        $product->setTitle('Redevelopment');
+        $product->setLongDescription('Redevelopment/redesigning of an existing website');
+        $product->setShortDescription('Redevelopment/redesigning of an existing website');
+
+        $manager->persist($product);
+        $manager->flush();
+
+        $this->setReference(self::REFERENCE_REDEVELOPMENT, $product);
     }
 }

@@ -15,4 +15,9 @@ class Name extends Enum
     const TEST = 'test';
     const INTEGRATION = 'integration';
     const ALGORITHM = 'algorithm';
+
+    const MANUAL = 'manual';
+    const DEVELOPER = 'developer';
+    const AGE = 'age';
+    const SUPPORT = 'support';
 }

@@ -1,7 +1,8 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
 
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Goal;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Goal;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Kind;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
@@ -10,7 +11,7 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class ModuleEstimator implements EstimatorInterface
+class WebApplicationModuleEstimator implements EstimatorInterface
 {
     use UtilsTrait;
 
@@ -29,7 +30,10 @@ class ModuleEstimator implements EstimatorInterface
      */
     public function supports(Given $given, array $givens)
     {
-        return $given->getFeature()->getName()->is(Name::MODULE);
+        $feature = $given->getFeature();
+
+        return $feature->getName()->is(Name::MODULE)
+            && $feature->getProduct()->getKind()->is(Kind::WEB_APPLICATION);
     }
 
     /**
@@ -41,7 +45,9 @@ class ModuleEstimator implements EstimatorInterface
     {
         $estimation = new Estimation();
 
-        $duration = $given->getValue() * self::DURATION_PER_MODULE[(string) $this->getGoal($givens)];
+        $durationPerModule = self::DURATION_PER_MODULE[(string) $this->getGoal($givens)];
+
+        $duration = $given->getValue() * $durationPerModule;
 
         $estimation->setPrice($duration * self::COST_PER_HOUR);
 

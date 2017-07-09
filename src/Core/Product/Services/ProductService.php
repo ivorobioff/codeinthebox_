@@ -3,12 +3,14 @@ namespace ImmediateSolutions\CodeInTheBox\Core\Product\Services;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\DesignEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\RedevelopmentDesignEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplicationDesignEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\IntegrationEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\ModuleEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\RedevelopmentModuleEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\SpecificationEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\TestEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplicationModuleEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
@@ -92,11 +94,13 @@ class ProductService extends Service
     private function getEstimators()
     {
         return [
-            new ModuleEstimator(),
+            new WebApplicationModuleEstimator(),
             new SpecificationEstimator(),
-            new DesignEstimator(),
+            new WebApplicationDesignEstimator(),
             new TestEstimator(),
-            new IntegrationEstimator()
+            new IntegrationEstimator(),
+            new RedevelopmentModuleEstimator(),
+            new RedevelopmentDesignEstimator()
         ];
     }
 

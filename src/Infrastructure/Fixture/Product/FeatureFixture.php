@@ -4,11 +4,14 @@ namespace ImmediateSolutions\CodeInTheBox\Infrastructure\Fixture\Product;
 use Doctrine\Common\Persistence\ObjectManager;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Algorithm;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Design;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Goal;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Age;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Algorithm;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Design;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Developer;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Goal;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Scope;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Support;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\Fixture\Support\Fixture;
 
 /**
@@ -22,6 +25,76 @@ class FeatureFixture extends Fixture
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
+    {
+        $this->addWebApplicationFeatures($manager);
+        $this->addRedevelopmentFeatures($manager);
+
+        $manager->flush();
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addRedevelopmentFeatures(ObjectManager $manager)
+    {
+        /**
+         * @var Product $product
+         */
+        $product = $this->getReference(ProductFixture::REFERENCE_REDEVELOPMENT);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::MODULE));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(5);
+
+        $manager->persist($feature);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::MANUAL));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(true);
+
+        $manager->persist($feature);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::DEVELOPER));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(Developer::COMPANY);
+
+        $manager->persist($feature);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::SUPPORT));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(Support::SAME_PARTIES);
+
+        $manager->persist($feature);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::AGE));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(new Age(Age::NORMAL));
+
+        $manager->persist($feature);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::DESIGN));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(new Design(Design::EXISTING));
+
+        $manager->persist($feature);
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addWebApplicationFeatures(ObjectManager $manager)
     {
         /**
          * @var Product $product
@@ -85,7 +158,5 @@ class FeatureFixture extends Fixture
         $feature->setValue(true);
 
         $manager->persist($feature);
-
-        $manager->flush();
     }
 }

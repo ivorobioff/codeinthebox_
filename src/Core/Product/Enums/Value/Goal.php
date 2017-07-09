@@ -1,5 +1,5 @@
 <?php
-namespace ImmediateSolutions\CodeInTheBox\Core\Product\Enums;
+namespace ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value;
 
 use ImmediateSolutions\Support\Other\Enum;
 

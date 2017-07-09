@@ -1,7 +1,7 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters;
 
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Design;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Design;
 
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>

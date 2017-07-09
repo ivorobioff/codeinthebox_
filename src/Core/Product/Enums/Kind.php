@@ -9,6 +9,7 @@ use ImmediateSolutions\Support\Other\Enum;
 class Kind extends Enum
 {
     const WEB_APPLICATION = 'web-application';
+    const REDEVELOPMENT = 'redevelopment';
     const SCRIPT = 'script';
     const WORDPRESS_THEME = 'wordpress-theme';
 }

@@ -1,7 +1,7 @@
 <?php
 namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
 
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Integration;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Integration;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
