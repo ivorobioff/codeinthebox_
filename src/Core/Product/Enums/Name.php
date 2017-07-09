@@ -20,4 +20,6 @@ class Name extends Enum
     const DEVELOPER = 'developer';
     const AGE = 'age';
     const SUPPORT = 'support';
+
+    const POINT = 'point';
 }

@@ -9,6 +9,7 @@ use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\DesignConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\DeveloperConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\GoalConverter;
+use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\PointConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\PrimitiveConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\SupportConverter;
 use ImmediateSolutions\Support\Infrastructure\Doctrine\AbstractType;
@@ -27,14 +28,16 @@ class ValueType extends AbstractType
     private function getConverters()
     {
         return [
-            new PrimitiveConverter(),
             new DateTimeConverter(),
             new GoalConverter(),
             new DesignConverter(),
             new AlgorithmConverter(),
             new AgeConverter(),
             new DeveloperConverter(),
-            new SupportConverter()
+            new SupportConverter(),
+            new PointConverter(),
+
+            new PrimitiveConverter()
         ];
     }
 

@@ -47,7 +47,7 @@ class WebApplicationModuleEstimator implements EstimatorInterface
 
         $durationPerModule = self::DURATION_PER_MODULE[(string) $this->getGoal($givens)];
 
-        $duration = $given->getValue() * $durationPerModule;
+        $duration = count($given->getValue()) * $durationPerModule;
 
         $estimation->setPrice($duration * self::COST_PER_HOUR);
 

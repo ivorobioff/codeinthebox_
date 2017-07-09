@@ -11,7 +11,9 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Developer;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Goal;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Scope;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Integration;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Support;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Point;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\Fixture\Support\Fixture;
 
 /**
@@ -28,9 +30,34 @@ class FeatureFixture extends Fixture
     {
         $this->addWebApplicationFeatures($manager);
         $this->addRedevelopmentFeatures($manager);
+        $this->addIntegrationFeatures($manager);
 
         $manager->flush();
     }
+
+    private function addIntegrationFeatures(ObjectManager $manager)
+    {
+        /**
+         * @var Product $product
+         */
+        $product = $this->getReference(ProductFixture::REFERENCE_INTEGRATION);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::POINT));
+        $feature->setScope(new Scope(Scope::OUTER));
+
+        $point = new Point();
+
+        $point->setIntegration(Integration::MAILGUN);
+
+        $point->setPlaces(['', '', '', '', '']);
+
+        $feature->setValue([$point]);
+
+        $manager->persist($feature);
+    }
+
 
     /**
      * @param ObjectManager $manager
@@ -46,7 +73,7 @@ class FeatureFixture extends Fixture
         $feature->setProduct($product);
         $feature->setName(new Name(Name::MODULE));
         $feature->setScope(new Scope(Scope::OUTER));
-        $feature->setValue(5);
+        $feature->setValue(['', '', '', '', '']);
 
         $manager->persist($feature);
 
@@ -105,7 +132,7 @@ class FeatureFixture extends Fixture
         $feature->setProduct($product);
         $feature->setName(new Name(Name::MODULE));
         $feature->setScope(new Scope(Scope::OUTER));
-        $feature->setValue(5);
+        $feature->setValue(['', '', '', '', '']);
 
 
         $manager->persist($feature);

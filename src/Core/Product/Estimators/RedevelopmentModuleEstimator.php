@@ -57,7 +57,7 @@ class RedevelopmentModuleEstimator implements EstimatorInterface
     {
         $estimation = new Estimation();
 
-        $duration = $given->getValue() * $this->getDurationPerModule($givens);
+        $duration = count($given->getValue()) * $this->getDurationPerModule($givens);
 
         $estimation->setDuration($duration);
         $estimation->setPrice($duration * self::COST_PER_HOUR);

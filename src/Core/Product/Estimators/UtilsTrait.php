@@ -18,7 +18,7 @@ trait UtilsTrait
     {
         foreach ($givens as $given){
             if ($given->getFeature()->getName()->is(Name::MODULE)){
-                return $given->getValue();
+                return count($given->getValue());
             }
         }
 

@@ -3,6 +3,7 @@ namespace ImmediateSolutions\CodeInTheBox\Core\Product\Services;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\PointEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\RedevelopmentDesignEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplicationDesignEstimator;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
@@ -100,7 +101,8 @@ class ProductService extends Service
             new TestEstimator(),
             new IntegrationEstimator(),
             new RedevelopmentModuleEstimator(),
-            new RedevelopmentDesignEstimator()
+            new RedevelopmentDesignEstimator(),
+            new PointEstimator()
         ];
     }
 

@@ -13,6 +13,7 @@ class ProductFixture extends Fixture
 {
     const REFERENCE_WEB_APPLICATION = 'product_web_application';
     const REFERENCE_REDEVELOPMENT = 'product_redevelopment';
+    const REFERENCE_INTEGRATION = 'product_integration';
 
     /**
      * Load data fixtures with the passed EntityManager
@@ -21,27 +22,58 @@ class ProductFixture extends Fixture
      */
     public function load(ObjectManager $manager)
     {
+        $this->addWebApplicationProduct($manager);
+        $this->addRedevelopmentProduct($manager);
+        $this->addIntegrationProduct($manager);
+
+        $manager->flush();
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addIntegrationProduct(ObjectManager $manager)
+    {
+        $product = new Product();
+        $product->setKind(new Kind(Kind::INTEGRATION));
+        $product->setTitle('Integration');
+        $product->setShortDescription('Integration of 3rd party systems with your existing system');
+        $product->setLongDescription('Integration of 3rd party systems with your existing system');
+
+        $manager->persist($product);
+
+        $this->setReference(self::REFERENCE_INTEGRATION, $product);
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addRedevelopmentProduct(ObjectManager $manager)
+    {
+        $product = new Product();
+        $product->setKind(new Kind(Kind::REDEVELOPMENT));
+        $product->setTitle('Redevelopment');
+        $product->setShortDescription('Redevelopment/redesigning of an existing website');
+        $product->setLongDescription('Redevelopment/redesigning of an existing website');
+
+        $manager->persist($product);
+
+        $this->setReference(self::REFERENCE_REDEVELOPMENT, $product);
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addWebApplicationProduct(ObjectManager $manager)
+    {
         $product = new Product();
 
         $product->setKind(new Kind(Kind::WEB_APPLICATION));
         $product->setTitle('Web Application');
-        $product->setLongDescription('Interactive, highly customizable software');
         $product->setShortDescription('Interactive, highly customizable software');
+        $product->setLongDescription('Interactive, highly customizable software');
 
         $manager->persist($product);
-        $manager->flush();
-
         $this->setReference(self::REFERENCE_WEB_APPLICATION, $product);
-
-        $product = new Product();
-        $product->setKind(new Kind(Kind::REDEVELOPMENT));
-        $product->setTitle('Redevelopment');
-        $product->setLongDescription('Redevelopment/redesigning of an existing website');
-        $product->setShortDescription('Redevelopment/redesigning of an existing website');
-
-        $manager->persist($product);
-        $manager->flush();
-
-        $this->setReference(self::REFERENCE_REDEVELOPMENT, $product);
     }
 }
