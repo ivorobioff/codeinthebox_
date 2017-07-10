@@ -12,6 +12,7 @@ use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\PointConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\PrimitiveConverter;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\SupportConverter;
+use ImmediateSolutions\CodeInTheBox\Infrastructure\DAL\Product\Types\Converters\WebsiteConverter;
 use ImmediateSolutions\Support\Infrastructure\Doctrine\AbstractType;
 
 /**
@@ -19,9 +20,6 @@ use ImmediateSolutions\Support\Infrastructure\Doctrine\AbstractType;
  */
 class ValueType extends AbstractType
 {
-    const MARKER_PRIMITIVE = 'primitive';
-    const MARKER_DATETIME = 'datetime';
-
     /**
      * @return ConverterInterface[]
      */
@@ -36,6 +34,7 @@ class ValueType extends AbstractType
             new DeveloperConverter(),
             new SupportConverter(),
             new PointConverter(),
+            new WebsiteConverter(),
 
             new PrimitiveConverter()
         ];

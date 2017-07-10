@@ -22,4 +22,8 @@ class Name extends Enum
     const SUPPORT = 'support';
 
     const POINT = 'point';
+
+    const WEBSITE = 'website';
+
+    const PAGE = 'page';
 }

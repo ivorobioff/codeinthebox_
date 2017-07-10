@@ -1,5 +1,5 @@
 <?php
-namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
+namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplication;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Integration;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;

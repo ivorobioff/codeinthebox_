@@ -1,9 +1,9 @@
 <?php
-namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
+namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\Redevelopment;
 
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Kind;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Design;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\UtilsTrait;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
@@ -11,7 +11,7 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class RedevelopmentDesignEstimator implements EstimatorInterface
+class DesignEstimator implements EstimatorInterface
 {
     use UtilsTrait;
 
@@ -28,10 +28,7 @@ class RedevelopmentDesignEstimator implements EstimatorInterface
      */
     public function supports(Given $given, array $givens)
     {
-        $feature = $given->getFeature();
-
-        return $feature->getName()->is(Name::DESIGN)
-            && $feature->getProduct()->getKind()->is(Kind::REDEVELOPMENT);
+        return $given->getFeature()->getName()->is(Name::DESIGN);
     }
 
     /**
@@ -54,13 +51,13 @@ class RedevelopmentDesignEstimator implements EstimatorInterface
         }
 
         if ($value->is(Design::PROVIDED)){
-            $duration = self::HTML_DURATION_PER_MODULE * $this->getTotalModules($givens);
+            $duration = self::HTML_DURATION_PER_MODULE * $this->countModules($givens);
             $estimation->setDuration($duration);
             $estimation->setPrice($duration * self::HTML_COST_PER_HOUR);
         }
 
         if ($value->is(Design::WANTED)){
-            $duration = (self::HTML_DURATION_PER_MODULE + self::DESIGN_DURATION_PER_MODULE) * $this->getTotalModules($givens);
+            $duration = (self::HTML_DURATION_PER_MODULE + self::DESIGN_DURATION_PER_MODULE) * $this->countModules($givens);
             $estimation->setDuration($duration);
             $estimation->setPrice($duration * ceil((self::DESIGN_COST_PER_HOUR + self::HTML_COST_PER_HOUR) / 2));
         }

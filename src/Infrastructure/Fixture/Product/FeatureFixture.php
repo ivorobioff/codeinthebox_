@@ -13,6 +13,7 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Scope;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Integration;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Support;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Website;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Point;
 use ImmediateSolutions\CodeInTheBox\Infrastructure\Fixture\Support\Fixture;
 
@@ -31,8 +32,75 @@ class FeatureFixture extends Fixture
         $this->addWebApplicationFeatures($manager);
         $this->addRedevelopmentFeatures($manager);
         $this->addIntegrationFeatures($manager);
+        $this->addWordpressThemeFeatures($manager);
+        $this->addCompanyWebsiteFeatures($manager);
 
         $manager->flush();
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addCompanyWebsiteFeatures(ObjectManager $manager)
+    {
+        /**
+         * @var Product $product
+         */
+        $product = $this->getReference(ProductFixture::REFERENCE_COMPANY_WEBSITE);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setEstimable(false);
+        $feature->setName(new Name(Name::PAGE));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(5);
+
+        $manager->persist($feature);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::DESIGN));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(new Design(Design::ANY));
+
+        $manager->persist($feature);
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addWordpressThemeFeatures(ObjectManager $manager)
+    {
+        /**
+         * @var Product $product
+         */
+        $product = $this->getReference(ProductFixture::REFERENCE_WORDPRESS_THEME);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setEstimable(false);
+        $feature->setName(new Name(Name::WEBSITE));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(new Website(Website::COMPANY_WEBSITE));
+
+        // when company website is selected
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setEstimable(false);
+        $feature->setName(new Name(Name::PAGE));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(5);
+
+        $manager->persist($feature);
+
+        $feature = new Feature();
+        $feature->setProduct($product);
+        $feature->setName(new Name(Name::DESIGN));
+        $feature->setScope(new Scope(Scope::OUTER));
+        $feature->setValue(new Design(Design::ANY));
+
+        $manager->persist($feature);
     }
 
     private function addIntegrationFeatures(ObjectManager $manager)
@@ -79,6 +147,7 @@ class FeatureFixture extends Fixture
 
         $feature = new Feature();
         $feature->setProduct($product);
+        $feature->setEstimable(false);
         $feature->setName(new Name(Name::MANUAL));
         $feature->setScope(new Scope(Scope::OUTER));
         $feature->setValue(true);
@@ -87,6 +156,7 @@ class FeatureFixture extends Fixture
 
         $feature = new Feature();
         $feature->setProduct($product);
+        $feature->setEstimable(false);
         $feature->setName(new Name(Name::DEVELOPER));
         $feature->setScope(new Scope(Scope::OUTER));
         $feature->setValue(Developer::COMPANY);
@@ -95,6 +165,7 @@ class FeatureFixture extends Fixture
 
         $feature = new Feature();
         $feature->setProduct($product);
+        $feature->setEstimable(false);
         $feature->setName(new Name(Name::SUPPORT));
         $feature->setScope(new Scope(Scope::OUTER));
         $feature->setValue(Support::SAME_PARTIES);
@@ -103,6 +174,7 @@ class FeatureFixture extends Fixture
 
         $feature = new Feature();
         $feature->setProduct($product);
+        $feature->setEstimable(false);
         $feature->setName(new Name(Name::AGE));
         $feature->setScope(new Scope(Scope::OUTER));
         $feature->setValue(new Age(Age::NORMAL));

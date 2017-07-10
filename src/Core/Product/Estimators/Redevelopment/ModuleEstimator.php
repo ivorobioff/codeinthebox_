@@ -1,9 +1,8 @@
 <?php
-namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
+namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\Redevelopment;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Age;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Developer;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Kind;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Support;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
@@ -13,7 +12,7 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class RedevelopmentModuleEstimator implements EstimatorInterface
+class ModuleEstimator implements EstimatorInterface
 {
     const DURATION_PER_MODULE = [
         Developer::COMPANY => 16,
@@ -42,10 +41,7 @@ class RedevelopmentModuleEstimator implements EstimatorInterface
      */
     public function supports(Given $given, array $givens)
     {
-        $feature = $given->getFeature();
-
-        return $feature->getName()->is(Name::MODULE)
-            && $feature->getProduct()->getKind()->is(Kind::REDEVELOPMENT);
+        return $given->getFeature()->getName()->is(Name::MODULE);
     }
 
     /**

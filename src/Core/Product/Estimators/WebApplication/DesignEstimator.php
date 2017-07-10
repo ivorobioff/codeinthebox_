@@ -1,10 +1,11 @@
 <?php
-namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators;
+namespace ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplication;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Kind;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Design;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Value\Goal;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Name;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\UtilsTrait;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
@@ -12,7 +13,7 @@ use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
 /**
  * @author Igor Vorobiov<igor.vorobioff@gmail.com>
  */
-class WebApplicationDesignEstimator implements EstimatorInterface
+class DesignEstimator implements EstimatorInterface
 {
     use UtilsTrait;
 
@@ -84,7 +85,7 @@ class WebApplicationDesignEstimator implements EstimatorInterface
      */
     private function getHtmlDuration(array $givens)
     {
-        $totalModules = $this->getTotalModules($givens);
+        $totalModules = $this->countModules($givens);
         $goal = $this->getGoal($givens);
 
         $duration = (int) ceil($totalModules * self::HTML_DURATION_PER_MODULE[(string) $goal]);
@@ -98,7 +99,7 @@ class WebApplicationDesignEstimator implements EstimatorInterface
      */
     private function getDesignDuration(array $givens)
     {
-        $totalModules = $this->getTotalModules($givens);
+        $totalModules = $this->countModules($givens);
         $goal = $this->getGoal($givens);
 
         return $totalModules * self::DESIGN_DURATION_PER_MODULE[(string) $goal];

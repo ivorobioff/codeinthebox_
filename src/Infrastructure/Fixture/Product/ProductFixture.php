@@ -14,6 +14,9 @@ class ProductFixture extends Fixture
     const REFERENCE_WEB_APPLICATION = 'product_web_application';
     const REFERENCE_REDEVELOPMENT = 'product_redevelopment';
     const REFERENCE_INTEGRATION = 'product_integration';
+    const REFERENCE_WORDPRESS_THEME = 'product_wordpress_theme';
+    const REFERENCE_WEB_SERVICE = 'product_web_service';
+    const REFERENCE_COMPANY_WEBSITE = 'product_company_website';
 
     /**
      * Load data fixtures with the passed EntityManager
@@ -25,9 +28,61 @@ class ProductFixture extends Fixture
         $this->addWebApplicationProduct($manager);
         $this->addRedevelopmentProduct($manager);
         $this->addIntegrationProduct($manager);
+        $this->addWordpressThemeProduct($manager);
+        $this->addWebServiceProduct($manager);
+        $this->addCompanyWebsiteProduct($manager);
 
         $manager->flush();
     }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addCompanyWebsiteProduct(ObjectManager $manager)
+    {
+        $product = new Product();
+        $product->setKind(new Kind(Kind::COMPANY_WEBSITE));
+        $product->setTitle('Company Website');
+        $product->setShortDescription('A website to represent your company, list products you offer');
+        $product->setLongDescription('A website to represent your company, list products you offer');
+
+        $manager->persist($product);
+
+        $this->setReference(self::REFERENCE_COMPANY_WEBSITE, $product);
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addWebServiceProduct(ObjectManager $manager)
+    {
+        $product = new Product();
+        $product->setKind(new Kind(Kind::WEB_SERVICE));
+        $product->setTitle('Web Service');
+        $product->setShortDescription('An web service to support your mobile application and more');
+        $product->setLongDescription('An web service to support your mobile application and more');
+
+        $manager->persist($product);
+
+        $this->setReference(self::REFERENCE_WEB_SERVICE, $product);
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function addWordpressThemeProduct(ObjectManager $manager)
+    {
+        $product = new Product();
+        $product->setKind(new Kind(Kind::WORDPRESS_THEME));
+        $product->setTitle('Wordpress Theme');
+        $product->setShortDescription('A beautiful theme for your Wordpress website as per your requirements');
+        $product->setLongDescription('A beautiful theme for your Wordpress website as per your requirements');
+
+        $manager->persist($product);
+
+        $this->setReference(self::REFERENCE_WORDPRESS_THEME, $product);
+    }
+
 
     /**
      * @param ObjectManager $manager

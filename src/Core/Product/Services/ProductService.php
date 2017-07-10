@@ -3,15 +3,7 @@ namespace ImmediateSolutions\CodeInTheBox\Core\Product\Services;
 
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Feature;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Entities\Product;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\PointEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\RedevelopmentDesignEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplicationDesignEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\EmptyEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\IntegrationEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\RedevelopmentModuleEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\SpecificationEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\TestEstimator;
-use ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplicationModuleEstimator;
+use ImmediateSolutions\CodeInTheBox\Core\Product\Enums\Kind;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Interfaces\EstimatorInterface;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Estimation;
 use ImmediateSolutions\CodeInTheBox\Core\Product\Objects\Given;
@@ -90,20 +82,34 @@ class ProductService extends Service
     }
 
     /**
-     * @return EstimatorInterface[]
+     * @param Kind $kind
+     * @return array
      */
-    private function getEstimators()
+    private function getEstimators(Kind $kind)
     {
-        return [
-            new WebApplicationModuleEstimator(),
-            new SpecificationEstimator(),
-            new WebApplicationDesignEstimator(),
-            new TestEstimator(),
-            new IntegrationEstimator(),
-            new RedevelopmentModuleEstimator(),
-            new RedevelopmentDesignEstimator(),
-            new PointEstimator()
-        ];
+        return ([
+            Kind::COMPANY_WEBSITE => [
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\CompanyWebsite\DesignEstimator::class,
+            ],
+            Kind::REDEVELOPMENT => [
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\Redevelopment\ModuleEstimator::class,
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\Redevelopment\DesignEstimator::class
+            ],
+            Kind::WEB_APPLICATION => [
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplication\DesignEstimator::class,
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplication\IntegrationEstimator::class,
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplication\SpecificationEstimator::class ,
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplication\TestEstimator::class,
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplication\ModuleEstimator::class,
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WebApplication\AlgorithmEstimator::class
+            ],
+            Kind::INTEGRATION => [
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\Integration\PointEstimator::class,
+            ],
+            Kind::WORDPRESS_THEME => [
+                \ImmediateSolutions\CodeInTheBox\Core\Product\Estimators\WordpressTheme\DesignEstimator::class,
+            ]
+        ])[(string) $kind];
     }
 
     /**
@@ -113,13 +119,21 @@ class ProductService extends Service
      */
     private function findEstimator(Given $given, array $givens)
     {
-        foreach ($this->getEstimators() as $estimator){
+        $feature = $given->getFeature();
+        $product = $feature->getProduct();
+
+        foreach ($this->getEstimators($product->getKind()) as $estimator){
+            /**
+             * @var EstimatorInterface $estimator
+             */
+            $estimator = new $estimator();
             if ($estimator->supports($given, $givens)){
                 return $estimator;
             }
         }
 
-        return new EmptyEstimator();
+        throw new \RuntimeException('Unable to find estimator for the "'
+            .$product->getKind().'" product and the "'.$feature->getName().'" feature');
     }
 
 }
